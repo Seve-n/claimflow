@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, ShieldCheck } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -16,11 +16,8 @@ export function Sidebar() {
 
   return (
     <aside className="hidden shrink-0 flex-col border-r border-sidebar-border bg-sidebar md:flex md:w-60">
-      <div className="flex h-14 shrink-0 items-center gap-2 px-5">
-        <div className="flex size-7 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-          <ShieldCheck className="size-4" aria-hidden="true" />
-        </div>
-        <span className="font-heading text-base font-semibold text-sidebar-foreground">
+      <div className="flex h-14 shrink-0 items-center px-5">
+        <span className="font-heading text-lg font-medium tracking-tight text-sidebar-foreground">
           ClaimFlow
         </span>
       </div>

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, Menu, ShieldCheck } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -45,10 +45,7 @@ export function MobileNav() {
         className="flex w-64 flex-col gap-0 bg-sidebar p-0 text-sidebar-foreground"
       >
         <SheetHeader className="border-b border-sidebar-border">
-          <SheetTitle className="flex items-center gap-2 text-sidebar-foreground">
-            <span className="flex size-7 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-              <ShieldCheck className="size-4" aria-hidden="true" />
-            </span>
+          <SheetTitle className="font-heading text-lg font-medium tracking-tight text-sidebar-foreground">
             ClaimFlow
           </SheetTitle>
         </SheetHeader>

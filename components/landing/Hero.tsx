@@ -17,18 +17,14 @@ const fadeUp: Variants = {
 /** Landing page hero: headline, subtitle, primary CTAs. Above-the-fold, so it animates in on mount. */
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px] bg-gradient-to-b from-accent/70 via-accent/10 to-transparent"
-        aria-hidden="true"
-      />
+    <section className="border-b border-border">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-20 text-center md:px-6 md:py-28">
         <motion.h1
           initial="hidden"
           animate="visible"
           custom={0}
           variants={fadeUp}
-          className="text-balance font-heading text-4xl font-semibold tracking-tight text-foreground sm:text-5xl"
+          className="text-balance font-[family-name:var(--font-editorial)] text-4xl font-medium tracking-tight text-foreground sm:text-5xl"
         >
           Insurance claims, made simple.
         </motion.h1>
@@ -50,7 +46,7 @@ export function Hero() {
         >
           <Button
             size="lg"
-            className="h-11 px-6"
+            className="h-11 rounded-none px-6"
             nativeButton={false}
             render={<Link href="/signup" />}
           >
@@ -60,7 +56,7 @@ export function Hero() {
           <Button
             variant="outline"
             size="lg"
-            className="h-11 px-6"
+            className="h-11 rounded-none px-6"
             nativeButton={false}
             render={<Link href="/login" />}
           >

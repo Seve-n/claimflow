@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Activity, ClipboardList, FolderLock, MessageSquare, type LucideIcon } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface Feature {
   icon: LucideIcon;
@@ -33,12 +32,12 @@ const FEATURES: Feature[] = [
   },
 ];
 
-/** Four-feature grid: icon + title + short copy, fading in as the section enters the viewport. */
+/** Four-feature editorial list: numbered rule, icon, title and copy — no colored cards. */
 export function FeatureSection() {
   return (
     <section id="features" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+        <h2 className="font-[family-name:var(--font-editorial)] text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
           Everything you need to manage a claim
         </h2>
         <p className="mt-3 text-muted-foreground">
@@ -46,7 +45,7 @@ export function FeatureSection() {
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {FEATURES.map((feature, i) => (
           <motion.div
             key={feature.title}
@@ -54,18 +53,16 @@ export function FeatureSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.25, delay: i * 0.06, ease: "easeOut" }}
+            className="flex flex-col gap-3 border-t border-border pt-5"
           >
-            <Card className="h-full">
-              <CardContent className="flex flex-col gap-3">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-accent text-accent-foreground">
-                  <feature.icon className="size-5" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-foreground">{feature.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{feature.description}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+              <feature.icon className="size-4 text-foreground" aria-hidden="true" />
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">{feature.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">{feature.description}</p>
+            </div>
           </motion.div>
         ))}
       </div>
