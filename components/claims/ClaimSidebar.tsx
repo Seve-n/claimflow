@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { formatDateFR, formatEUR, getInitials } from "@/lib/utils";
+import { FraudRiskCard } from "./FraudRiskCard";
 import type { Claim } from "@/types";
 
 interface ClaimSidebarProps {
@@ -143,6 +144,7 @@ export function ClaimSidebar({ claim }: ClaimSidebarProps) {
     <div className="flex flex-col gap-4">
       <RequiredActionsCard claim={claim} />
       <SummaryCard claim={claim} />
+      <FraudRiskCard claimId={claim.id} />
       <HandlerCard handler={claim.assignedHandler} />
       <ContactSupportCard />
       <ImportantDatesCard claim={claim} />

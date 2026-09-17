@@ -33,6 +33,10 @@ messages with a claims team, and managing documents.
   every claim
 - **Messages** — conversation view with the claims support team
 - **Settings & Help** — account settings and an FAQ/support page
+- **AI risk analysis** *(optional, needs a free API key — see below)* — on a
+  claim's detail page, a button-triggered card calls a real LLM (Google
+  Gemini, free tier) server-side to produce an illustrative fraud-risk score,
+  signals, and summary from the claim's details
 - Fully responsive (390px / 768px / 1280px / 1440px), keyboard-navigable,
   and built to WCAG-conscious contrast and focus-state standards
 
@@ -48,8 +52,12 @@ messages with a claims team, and managing documents.
 - [date-fns](https://date-fns.org) for French/European date formatting
 - [Sonner](https://sonner.emilkowal.ski) for toast notifications
 - [Lucide](https://lucide.dev) for icons
-- No backend — a mock data layer (`lib/mock-data/*`) and a trivial
-  localStorage-backed mock auth (`lib/auth.ts`) stand in for a real API
+- No real backend — a mock data layer (`lib/mock-data/*`) and a trivial
+  localStorage-backed mock auth (`lib/auth.ts`) stand in for a real API. The
+  one exception is `app/api/claims/[id]/fraud-check/route.ts`, a real Next.js
+  Route Handler that calls the [Gemini API](https://ai.google.dev) (free
+  tier) server-side for the optional AI risk analysis feature — the API key
+  never reaches the browser
 
 ## Design system
 
@@ -80,6 +88,20 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000). Log in with the demo
 credentials above — no environment variables or external services are
 required, since everything runs on mock data.
+
+### Enabling AI risk analysis (optional)
+
+The rest of the app works with zero configuration. To turn on the "AI risk
+analysis" card on a claim's detail page:
+
+1. Get a free key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
+   (no credit card required)
+2. Copy `.env.example` to `.env.local` and paste the key into `GEMINI_API_KEY`
+3. Restart `npm run dev`
+
+On Vercel, add `GEMINI_API_KEY` under Project Settings → Environment
+Variables. Without a key, the card shows a clear "not configured" message
+instead of failing silently.
 
 ### Other scripts
 
