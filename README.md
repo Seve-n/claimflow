@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ClaimFlow
 
-## Getting Started
+ClaimFlow is a fictional B2C insurance claims management platform — a
+portfolio project built to demonstrate front-end product engineering for a
+work-study ("alternance") application. It simulates a modern insurtech SaaS
+customer portal: reporting a claim, tracking its progress, exchanging
+messages with a claims team, and managing documents.
 
-First, run the development server:
+> **ClaimFlow is a fictional portfolio project. All data shown is simulated.**
+> It has no affiliation with any real insurance company. There is no backend,
+> no real user data, and no real policies — everything runs on an in-memory
+> mock data layer.
+
+## Live demo
+
+- **Demo login:** `demo@claimflow.app` / `Demo123!` (also available via the
+  "Fill demo credentials" button on the login page)
+- No sign-up flow is required to explore the app — the demo account is
+  pre-seeded with sample claims, documents, and messages.
+
+## Features
+
+- **Public site** — landing page, login, signup, and forgot-password flows
+- **Dashboard** — claim summary counts, action-required alerts, recent
+  claims, recent activity, and a claims-by-status chart
+- **Claims list & detail** — searchable/filterable claims table, and a
+  per-claim detail page with a progress stepper, document list, and a
+  messages thread with the claims team
+- **5-step claim submission wizard** — claim type → incident details →
+  damage-type-specific fields → optional document upload → review & submit,
+  with full client-side validation
+- **Documents** — a searchable, filterable table of every document across
+  every claim
+- **Messages** — conversation view with the claims support team
+- **Settings & Help** — account settings and an FAQ/support page
+- Fully responsive (390px / 768px / 1280px / 1440px), keyboard-navigable,
+  and built to WCAG-conscious contrast and focus-state standards
+
+## Tech stack
+
+- [Next.js](https://nextjs.org) (App Router, TypeScript, Turbopack)
+- [Tailwind CSS v4](https://tailwindcss.com) with CSS-variable design tokens
+- [shadcn/ui](https://ui.shadcn.com) component primitives
+- [Framer Motion](https://www.framer.com/motion/) for subtle transitions
+- [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) for
+  form validation
+- [Recharts](https://recharts.org) for the dashboard chart
+- [date-fns](https://date-fns.org) for French/European date formatting
+- [Sonner](https://sonner.emilkowal.ski) for toast notifications
+- [Lucide](https://lucide.dev) for icons
+- No backend — a mock data layer (`lib/mock-data/*`) and a trivial
+  localStorage-backed mock auth (`lib/auth.ts`) stand in for a real API
+
+## Design system
+
+The visual style takes its color palette, typography (DM Sans), and shadow
+scale from [TailGrids](https://tailgrids.com), reimplemented as CSS custom
+properties in `app/globals.css` and consumed through shadcn/ui's existing
+component architecture — components use semantic Tailwind tokens
+(`bg-primary`, `bg-sidebar`, `text-muted-foreground`, `bg-success-bg`, …)
+rather than hardcoded colors, so the whole app re-themes from one file.
+
+Status colors are never the only signal: every status badge pairs a color
+with an icon and a text label.
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 20+
+- npm (or pnpm/yarn/bun)
+
+### Install & run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Log in with the demo
+credentials above — no environment variables or external services are
+required, since everything runs on mock data.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Other scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # production build
+npm run start   # run the production build
+npm run lint    # eslint
+```
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/                   Routes (App Router) — public pages + authenticated app
+  claims/               Claims list, detail, and the new-claim wizard
+  dashboard/            Authenticated dashboard
+  documents/, messages/, settings/, help/
+components/
+  layout/                AppShell, Sidebar, Header, MobileNav
+  shared/                StatusBadge, EmptyState, PageHeader, LoadingSkeletons
+  dashboard/, claims/, documents/, messages/, ...   Feature-specific UI
+  ui/                     shadcn/ui primitives
+lib/
+  mock-data/              Mock user, claims, documents, messages, activity, FAQ
+  validations/            Zod schemas for every form
+  auth.ts, utils.ts
+types/                  Shared TypeScript types (User, Claim, ClaimStatus, ...)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Accessibility & responsiveness
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Minimum 4.5:1 text contrast, visible focus rings, labeled form inputs,
+  `aria-label`s on icon-only buttons
+- Keyboard-navigable dialogs and menus (via Radix/Base UI primitives)
+- Respects `prefers-reduced-motion`
+- Verified at 390px, 768px, 1280px, and 1440px — no horizontal scroll;
+  tables collapse to card lists or scrollable containers on mobile
 
-## Deploy on Vercel
+## Future improvements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Real backend (auth, persistence, file storage) behind the same UI
+- Automated test coverage (unit + E2E) for the claim submission wizard
+- Notification center wired to real events instead of static mock content
+- Multi-language support (the app is currently English-only; mock data uses
+  European date/currency formatting)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+*ClaimFlow is a fictional portfolio project. All data shown is simulated.*
